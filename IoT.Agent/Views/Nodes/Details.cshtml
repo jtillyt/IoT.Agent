@@ -1,0 +1,137 @@
+﻿@model IoT.Agent.Models.NodeDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Html.DisplayFor(model => model.DisplayName)</h1>
+<hr />
+
+<div class="h4 m-2">Message</div>
+<div class="row m-2" style="min-height:120px">
+    <div class="col-6 offset-3" id="messageEditor">@Model.MessageTemplateText</div>
+</div>
+<div class="row">
+    <div class="col-1 offset-8">
+        <input id="sendInMessageButton"
+               type="button"
+               class="btn btn-success"
+               value="Send" />
+    </div>
+</div>
+<hr />
+<div class="h4 m-2">On Message</div>
+<div class="row m-2" style="min-height:120px">
+    <div class="col-10 offset-1" id="editor" style="min-height:60px">@Model.ScriptText</div>
+</div>
+<div class="row m-2">
+    <div class="col-1 offset-10" style>
+        <input id="saveButton"
+               type="button"
+               class="btn btn-primary"
+               value="Save" />
+    </div>
+</div>
+<hr />
+<div class="h4 m-2">Message Template</div>
+<div class="row m-2" style="min-height:120px">
+    <div class="col-6 offset-3" id="messageTemplateEditor">@Model.MessageTemplateText</div>
+</div>
+<div class="row">
+    <div class="col-1 offset-8">
+        <input id="saveMessageTemplateButton"
+               type="button"
+               class="btn btn-success"
+               value="Save" />
+    </div>
+</div>
+<hr />
+<div class="m-2 panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#help">Script Help</a>
+            </h4>
+        </div>
+        <div id="help" class="panel-collapse collapse">
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">print(anything:object)</li>
+                    <li class="list-group-item">log(anything:object)</li>
+                    <li class="list-group-item">wait(milliseconds:int)</li>
+                    <li class="list-group-item">setPinAsOut(pin:int)</li>
+                    <li class="list-group-item">setPinAsIn(pin:int)</li>
+                    <li class="list-group-item">writeBool(pin:int,val:bool)</li>
+                    <li class="list-group-item">val:bool=readBool(pin:int)</li>
+                </ul>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back To Service", "Details", "Services", new { serviceId = @Model.ServiceId })
+</div>
+
+<script src="~/lib/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    var messageEditor = ace.edit("messageEditor", {
+        autoScrollEditorIntoView: true,
+        wrap: true,
+    });
+    messageEditor.setTheme("ace/theme/github"); //https://github.com/ajaxorg/ace/tree/master/lib/ace/theme
+    messageEditor.session.setMode("ace/mode/javascript");
+
+    messageEditor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
+    });
+
+    var messageTemplateEditor = ace.edit("messageTemplateEditor", {
+        autoScrollEditorIntoView: true,
+        wrap: true,
+    });
+    messageTemplateEditor.setTheme("ace/theme/github"); //https://github.com/ajaxorg/ace/tree/master/lib/ace/theme
+    messageTemplateEditor.session.setMode("ace/mode/javascript");
+
+    messageTemplateEditor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
+    });
+
+    var editor = ace.edit("editor", {
+        maxLines: 80,
+        autoScrollEditorIntoView: true,
+        wrap: true,
+    });
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
+    });
+
+    $(document).ready(function () {
+        $('#saveButton').click(function () {
+            var editor = ace.edit("editor");
+            var text = editor.getValue();
+            $.post("/Nodes/SetScript?nodeId=@Model.EntityId", {scriptText: text, scriptType: 'text/javascript'});
+        });
+        $('#sendInMessageButton').click(function () {
+            var messageEditor = ace.edit("messageEditor");
+            var text = messageEditor.getValue();
+            $.post("/Nodes/SendMessageIn?nodeId=@Model.EntityId", {messageText: text, messageType: 'JSON'});
+        });
+        $('#saveMessageTemplateButton').click(function () {
+            var messageTemplateEditor = ace.edit("messageTemplateEditor");
+            var text = messageTemplateEditor.getValue();
+            $.post("/Nodes/SaveMessageTemplate?nodeId=@Model.EntityId", {messageTemplateText: text, messageTeplateType: 'JSON'});
+        });
+    });
+</script>

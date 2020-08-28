@@ -1,0 +1,25 @@
+﻿@model IEnumerable<IoT.Agent.Models.NodeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="h4">Nodes</div>
+
+<table class="table">
+    <tbody>
+        @foreach (var nodeVm in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => nodeVm.DisplayName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Nodes", new { nodeId = nodeVm.EntityId }) |
+                    @Html.ActionLink("Details", "Details", "Nodes", new { nodeId = nodeVm.EntityId }) |
+                    @Html.ActionLink("Delete", "Delete", "Nodes", new { nodeId = nodeVm.EntityId, serviceId = nodeVm.ServiceId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

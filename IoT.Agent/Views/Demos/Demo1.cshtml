@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Demo1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Simple Pin Output Control</h1>
+
+<div style="margin-top:100px">
+    Pin Number
+    <input id="pinNumberInput" type="number" value="11" />
+</div>
+<div style="margin-top:20px">
+    <button id="LedOnButton" class="btn btn-success" type="button">Turn LED On</button>
+    <button id="LedOffButton" class="btn btn-secondary" type="button">Turn LED Off</button>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#LedOnButton').click(function () {
+            $.post("/Demos/SetLedState", {pinNumber :$('#pinNumberInput').val()  , pinState: 1});
+        });
+        $('#LedOffButton').click(function () {
+              $.post("/Demos/SetLedState", {pinNumber :$('#pinNumberInput').val()  , pinState: 0});
+        });
+           });
+</script>
