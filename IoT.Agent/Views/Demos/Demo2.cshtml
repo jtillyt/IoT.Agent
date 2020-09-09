@@ -4,13 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1> Pin Listening Control</h1>
+<h1>Temp  Listening Control</h1>
 
 <div style="margin-top:100px">
     Pin Number
     <input id="pinNumberInput" type="number" value="13" />
 </div>
 <div style="margin-top:20px">
+    <button id="ReadTempButton" class="btn btn-success" type="button">Read Temp</button>
     <button id="StartListeningButton" class="btn btn-success" type="button">Start Listening</button>
     <button id="StopListeningButton" class="btn btn-secondary" type="button">Stop Listening</button>
 </div>
@@ -18,6 +19,9 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        $('#ReadTempButton').click(function () {
+            $.post("/Demos/ReadTemp", {pinNumber :$('#pinNumberInput').val() });
+        });
         $('#StartListeningButton').click(function () {
             $.post("/Demos/SetListeningStateForPin", {pinNumber :$('#pinNumberInput').val()  , pinListenState: 1});
         });

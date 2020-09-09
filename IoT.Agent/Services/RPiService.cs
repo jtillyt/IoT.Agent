@@ -12,6 +12,8 @@ using IoT.Shared.Events;
 using IoT.ServiceHost.Gpio;
 using Microsoft.AspNetCore.SignalR;
 using IoT.Agent.Hubs;
+using IoT.Agent.Devices;
+using Microsoft.Extensions.Configuration;
 
 namespace IoT.Agent.Services
 {
@@ -19,7 +21,11 @@ namespace IoT.Agent.Services
     {
         private readonly IEventBus _eventBus;
         private readonly ILogger<RPiService> _logger;
+        private readonly IConfiguration _configuration;
+
         private readonly GpioWrapper _gpio;
+        private readonly DhtTempuratureWrapper _tempWrapper;
+        private readonly DuplexSerial _serial;
 
         private readonly System.Timers.Timer _blinkTimer = new System.Timers.Timer();
 
@@ -28,17 +34,36 @@ namespace IoT.Agent.Services
 
         private IHubContext<PiStateHub> _hubContext;
 
-        public RPiService(ILogger<RPiService> logger, IEventBus eventBus)
+        public RPiService(ILogger<RPiService> logger, IEventBus eventBus, IConfiguration configuration)
         {
             _logger = logger;
             _eventBus = eventBus;
+            _configuration = configuration;
             //_hubContext = hubContext;
 
             _gpio = new GpioWrapper();
             _gpio.PinStateChanged += _gpio_PinStateChanged;
 
+            _tempWrapper = new DhtTempuratureWrapper();
+            _tempWrapper.TempRead += _tempWrapper_TempRead;
+
+            _serial = new DuplexSerial(_configuration);
+            _serial.StartListening();
+
             _eventBus.EventStream.OfType<PinStateChangeRequested>().Subscribe(OnPinStateChangeRequested);
             _eventBus.EventStream.OfType<PinListenStateChangeRequested>().Subscribe(OnPinStateListeningChangeRequested);
+            _eventBus.EventStream.OfType<ReadTempRequested>().Subscribe(OnTempRequested);
+
+        }
+
+        private void OnTempRequested(ReadTempRequested evt)
+        {
+            _tempWrapper.ReadTemp(evt.PinNumber);
+        }
+
+        private void _tempWrapper_TempRead(object sender, TempHumidityResult evt)
+        {
+            Console.WriteLine($"Temp:{evt.Temp}, Humidity:{evt.Humidity}");
         }
 
         private void _gpio_PinStateChanged(object sender, PinStateChanged pinState)

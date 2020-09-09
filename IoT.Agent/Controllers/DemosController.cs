@@ -68,6 +68,17 @@ namespace IoT.Agent.Controllers
         }
 
         [HttpPost]
+        public async Task ReadTemp()
+        {
+            var formData = Request.Form;
+
+            var pinNumberStr = formData["pinNumber"].FirstOrDefault();
+
+            int.TryParse(pinNumberStr, out int pinNumber);
+            _eventBus.Publish(ReadTempRequested.Create(pinNumber));
+        }
+
+        [HttpPost]
         public async Task SetListeningStateForPin()
         {
             var formData = Request.Form;
