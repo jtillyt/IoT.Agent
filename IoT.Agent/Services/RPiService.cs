@@ -24,51 +24,44 @@ namespace IoT.Agent.Services
         private readonly IConfiguration _configuration;
 
         private readonly GpioWrapper _gpio;
-        private readonly DhtTempuratureWrapper _tempWrapper;
-        private readonly DuplexSerial _serial;
+
+        private readonly IDuplexSerialService _serial;
+        private readonly IMetricsService _metricsService;
 
         private readonly System.Timers.Timer _blinkTimer = new System.Timers.Timer();
 
-        private int _blinkingPinState = 0;
-        private int _blinkingPinNumber = 11;
-
         private IHubContext<PiStateHub> _hubContext;
 
-        public RPiService(ILogger<RPiService> logger, IEventBus eventBus, IConfiguration configuration)
+        public RPiService(ILogger<RPiService> logger, IEventBus eventBus, IConfiguration configuration, IDuplexSerialService duplexSerialService, IHubContext<PiStateHub> hubContext, IMetricsService metricsService)
         {
             _logger = logger;
             _eventBus = eventBus;
             _configuration = configuration;
-            //_hubContext = hubContext;
+            _hubContext = hubContext;
 
             _gpio = new GpioWrapper();
             _gpio.PinStateChanged += _gpio_PinStateChanged;
 
-            _tempWrapper = new DhtTempuratureWrapper();
-            _tempWrapper.TempRead += _tempWrapper_TempRead;
-
-            _serial = new DuplexSerial(_configuration);
+            _serial = duplexSerialService;
             _serial.StartListening();
+
+            _metricsService = metricsService;
+            _metricsService.AddValueTypeMapping(1, "Temp_In_F");
+            _metricsService.AddValueTypeMapping(2, "Humidity_Percent");
 
             _eventBus.EventStream.OfType<PinStateChangeRequested>().Subscribe(OnPinStateChangeRequested);
             _eventBus.EventStream.OfType<PinListenStateChangeRequested>().Subscribe(OnPinStateListeningChangeRequested);
-            _eventBus.EventStream.OfType<ReadTempRequested>().Subscribe(OnTempRequested);
-
+            _eventBus.EventStream.OfType<NumericNodeValueReceivedEvent>().Subscribe(OnNumericNodeValueReceived);
         }
 
-        private void OnTempRequested(ReadTempRequested evt)
+        private void OnNumericNodeValueReceived(NumericNodeValueReceivedEvent evt)
         {
-            _tempWrapper.ReadTemp(evt.PinNumber);
-        }
-
-        private void _tempWrapper_TempRead(object sender, TempHumidityResult evt)
-        {
-            Console.WriteLine($"Temp:{evt.Temp}, Humidity:{evt.Humidity}");
+            _hubContext.Clients.All.SendAsync("OnNumericNodeValueReceived", evt.NodeTypeId,evt.NodeId, evt.ValueTypeId, evt.Value);
         }
 
         private void _gpio_PinStateChanged(object sender, PinStateChanged pinState)
         {
-            //_hubContext.Clients.All.SendAsync("OnPinStateChanged", pinState);
+            _hubContext.Clients.All.SendAsync("OnPinStateChanged", pinState);
         }
 
         private void OnPinStateListeningChangeRequested(PinListenStateChangeRequested evt)

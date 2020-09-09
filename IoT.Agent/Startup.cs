@@ -12,6 +12,7 @@ using IoT.Shared.Models;
 using System.IO;
 using Microsoft.AspNetCore.SignalR;
 using IoT.Agent.Hubs;
+using IoT.ServiceHost.Gpio;
 
 namespace IoT.Agent
 {
@@ -38,6 +39,8 @@ namespace IoT.Agent
             //services.AddHostedService<RabbitMqService>();
             services.AddHostedService<AdminService>();
             services.AddHostedService<RPiService>();
+            services.AddSingleton<IDuplexSerialService,DuplexSerialService>();
+            services.AddSingleton<IMetricsService,MetricsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +70,7 @@ namespace IoT.Agent
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-                endpoints.MapHub<PiStateHub>("/pihub");
+                endpoints.MapHub<PiStateHub>("/nodehub");
             });
 
         }
