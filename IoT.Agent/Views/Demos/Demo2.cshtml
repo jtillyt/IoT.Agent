@@ -1,62 +1,56 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Demo1";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Live Temp Data</h1>
+<h2>Live Temp Data</h2>
 
 <div style="margin-top:100px">
-    <h2>
+    <h3>
         Node 1 Data
-    </h2>
-    <h4>
-        Temp:
-    </h4>
-    <label id="TempLabel" />
-    <h4>
-        Humidity:
-    </h4>
-    <label id="HumidityLabel" />
-    @*<input id="pinNumberInput" type="number" value="13" />*@
+    </h3>
+    <div>
+        <h4>
+            Temp:
+        </h4>
+        <label id="TempLabel" />
+    </div>
+    <div>
+        <h4>
+            Humidity:
+        </h4>
+        <label id="HumidityLabel" />
+    </div>
 </div>
-<!--<div style="margin-top:20px">-->
-    @*<button id="ReadTempButton" class="btn btn-success" type="button">Read Temp</button>*@
-    <!--<button id="StartListeningButton" class="btn btn-success" type="button">Start Listening</button>
-    <button id="StopListeningButton" class="btn btn-secondary" type="button">Stop Listening</button>
-</div>-->
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
 <script>
-    $(document).ready(function () {
+ $(document).ready(function () {
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl('/nodehub')
+        .build();
 
-    // Start the connection.
-            var connection = new signalR.HubConnectionBuilder()
-                                .withUrl('/nodehub')
-                                .build();
+    // Create a function that the hub can call to broadcast messages.
+    connection.on('OnNumericNodeValueReceived', function (nodeTypeId, nodeId, valueTypeId, value) {
+        if (valueTypeId === 1) {
+            console.log('Temp Value Received: ' + value);
+            $("#TempLabel").text(value.toString());
+        }
+        if (valueTypeId === 2) {
+            console.log('Humidity Value Received: ' + value);
+            $("#HumidityLabel").text(value.toString());
+        }
+    });
 
-            // Create a function that the hub can call to broadcast messages.
-            connection.on('OnNumericNodeValueReceived', function (nodeTypeId, nodeId, valueTypeId, value) {
-                    if(valueTypeId===1)
-                    {
-                          console.log('Temp Value Received: ' + value);
-                          $("#TempLabel").text(value.toString());
-                    }
-                    if(valueTypeId===2)
-                    {
-                        console.log('Humidity Value Received: ' + value);
-                        $("#HumidityLabel").text(value.toString());
-                    }
-            });
+    // Transport fallback functionality is now built into start.
+    connection.start()
+    .then(function () {
+        console.log('connection started!');
+    })
+    .catch(error => {
+        console.error(error.message);
+    });
 
-            // Transport fallback functionality is now built into start.
-            connection.start()
-                .then(function () {
-                    console.log('connection started!');
-            })
-            .catch(error => {
-                console.error(error.message);
-            });
-     });
+});
 </script>
