@@ -39,11 +39,13 @@ namespace IoT.Agent.Hubs
             return base.OnConnectedAsync();
         }
 
-        public void MobileLogin(UserInfo clientUserInfo)
+        public async void MobileLogin(UserInfo clientUserInfo)
         {
             clientUserInfo.LoginTime = DateTime.Now;
             Debug.WriteLine($"Connection received from: { clientUserInfo.FirstName } { clientUserInfo.LastName }");
             _userRepo.Add(clientUserInfo);
+
+            await Clients.All.SendAsync("UserLogChanged");
         }
     }
 }

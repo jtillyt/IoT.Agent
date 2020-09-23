@@ -7,6 +7,8 @@ using IoT.Agent.Models;
 using IoT.EventBus;
 using IoT.Shared.Events;
 using IoT.Agent.Repos;
+using Microsoft.AspNetCore.SignalR;
+using IoT.Agent.Hubs;
 
 namespace IoT.Agent.Controllers
 {
@@ -15,10 +17,13 @@ namespace IoT.Agent.Controllers
         private readonly IEventBus _eventBus;
         private readonly IUserRepo _userRepo;
 
-        public DemosController(IEventBus eventBus, IUserRepo userRepo)
+        private IHubContext<PiStateHub> _hubContext;
+
+        public DemosController(IEventBus eventBus, IUserRepo userRepo, IHubContext<PiStateHub> hubContext)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
+            _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
         }
 
         public async Task<ActionResult> Index()

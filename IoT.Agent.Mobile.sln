@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Agent.Mobile.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Agent.Mobile.iOS", "Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile.iOS\Iot.Agent.Mobile.iOS.csproj", "{BA8CD737-E8D1-4FF2-90A6-696D407C468D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Agent.Mobile", "Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile.csproj", "{AB305376-5148-412A-805E-CF19349CDC22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iot.Agent.Mobile", "Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile.csproj", "{AB305376-5148-412A-805E-CF19349CDC22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,42 +37,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|ARM.Build.0 = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|x64.Build.0 = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Debug|x86.Build.0 = Debug|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|Any CPU.ActiveCfg = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|Any CPU.Build.0 = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|ARM.ActiveCfg = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|ARM.Build.0 = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|iPhone.ActiveCfg = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|iPhone.Build.0 = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|iPhoneSimulator.ActiveCfg = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|iPhoneSimulator.Build.0 = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|x64.ActiveCfg = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|x64.Build.0 = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|x86.ActiveCfg = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.DebugPi|x86.Build.0 = DebugPi|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|ARM.ActiveCfg = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|ARM.Build.0 = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|iPhone.Build.0 = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|x64.ActiveCfg = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|x64.Build.0 = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|x86.ActiveCfg = Release|Any CPU
-		{850D1A46-757C-4D3C-A173-1EBE690424C8}.Release|x86.Build.0 = Release|Any CPU
 		{C66B6DDF-0ABC-476A-AC81-0465691F7214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C66B6DDF-0ABC-476A-AC81-0465691F7214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C66B6DDF-0ABC-476A-AC81-0465691F7214}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -146,6 +110,7 @@ Global
 		{DC7F32A5-D2F4-4DC6-88B1-FA8A16472F9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{DC7F32A5-D2F4-4DC6-88B1-FA8A16472F9F}.Release|x86.Build.0 = Release|Any CPU
 		{0D715A5A-F2DB-4F03-B04B-4755C58EFDDF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0D715A5A-F2DB-4F03-B04B-4755C58EFDDF}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{0D715A5A-F2DB-4F03-B04B-4755C58EFDDF}.Debug|ARM.ActiveCfg = Debug|ARM
 		{0D715A5A-F2DB-4F03-B04B-4755C58EFDDF}.Debug|ARM.Build.0 = Debug|ARM
 		{0D715A5A-F2DB-4F03-B04B-4755C58EFDDF}.Debug|ARM.Deploy.0 = Debug|ARM
