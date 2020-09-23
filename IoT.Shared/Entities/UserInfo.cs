@@ -10,5 +10,8 @@ namespace IoT.Shared.Entities
         public string LastName { get; set; }
         public string ClientId { get; set; }
         public string SignalrConnectionId { get; set; }
+
+        
+        public DateTime LoginTime { get; set; }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<IoT.Shared.Entities.UserInfo>
+
+@{
+    ViewData["Title"] = "Demo3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Remote Client Log</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SignalrConnectionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoginTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SignalrConnectionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoginTime)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

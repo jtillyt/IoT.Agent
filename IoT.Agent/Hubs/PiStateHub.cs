@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace IoT.Agent.Hubs
 {
+    //This is transient. Don't save state in here
     public class PiStateHub : Hub
     {
-        private readonly IUserRepo _userRepo;
+        private readonly IUserRepo _userRepo; //Save the state in a repo
 
         public PiStateHub(IUserRepo userRepo)
         {
@@ -40,6 +41,7 @@ namespace IoT.Agent.Hubs
 
         public void MobileLogin(UserInfo clientUserInfo)
         {
+            clientUserInfo.LoginTime = DateTime.Now;
             Debug.WriteLine($"Connection received from: { clientUserInfo.FirstName } { clientUserInfo.LastName }");
             _userRepo.Add(clientUserInfo);
         }

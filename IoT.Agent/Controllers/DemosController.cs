@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using IoT.Agent.Models;
 using IoT.EventBus;
 using IoT.Shared.Events;
+using IoT.Agent.Repos;
 
 namespace IoT.Agent.Controllers
 {
     public class DemosController : Controller
     {
         private readonly IEventBus _eventBus;
+        private readonly IUserRepo _userRepo;
 
-        public DemosController(IEventBus eventBus)
+        public DemosController(IEventBus eventBus, IUserRepo userRepo)
         {
-            _eventBus = eventBus;
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _userRepo = userRepo ?? throw new ArgumentNullException(nameof(userRepo));
         }
 
         public async Task<ActionResult> Index()
@@ -36,6 +39,11 @@ namespace IoT.Agent.Controllers
         public async Task<ActionResult> Demo2()
         {
             return View();
+        }
+
+        public async Task<ActionResult> Demo3()
+        {
+            return View(_userRepo.ListAll());
         }
 
         [HttpPost]

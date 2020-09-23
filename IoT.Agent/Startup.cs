@@ -71,7 +71,8 @@ namespace IoT.Agent
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+                
+                //The full address is http://{hostId}:{port}/nodehub
                 endpoints.MapHub<PiStateHub>("/nodehub");
             });
 
