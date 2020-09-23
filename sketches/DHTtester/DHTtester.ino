@@ -69,7 +69,7 @@ void loop() {
   Serial.print(',');
   Serial.print(1);
   Serial.print(',');
-  Serial.print(1);
+  Serial.print(1); //ValueTypeId 1 = Temp
   Serial.print(',');
   Serial.print(f);
   Serial.println();
@@ -80,13 +80,14 @@ void loop() {
   Serial.print(',');
   Serial.print(1);
   Serial.print(',');
-  Serial.print(2);
+  Serial.print(2); //ValueTypeId 2 = Humidity
   Serial.print(',');
   Serial.print(h);
   Serial.println();
       
   int minuteWait = 1;
-  long delayMs = (1000L * 60);
+  //long delayMs = (1000L * 60);
+  long delayMs = (1000L * 1);
 
-  delay(delayMs);//1 minutes
+  delay(delayMs);
 }

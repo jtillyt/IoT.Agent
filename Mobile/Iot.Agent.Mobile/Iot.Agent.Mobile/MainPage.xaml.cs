@@ -13,6 +13,19 @@ namespace Iot.Agent.Mobile
         public MainPage()
         {
             InitializeComponent();
+
+            ViewModel = new MainViewModel();
+            BindingContext = ViewModel;
+
+            Start().ConfigureAwait(false);
         }
+
+        public async Task Start()
+        {
+            await ViewModel.ConnectAsync(App.WebAddress);
+        }
+
+        public MainViewModel ViewModel {get; private set; }
+       
     }
 }

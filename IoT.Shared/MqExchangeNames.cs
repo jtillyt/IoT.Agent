@@ -6,10 +6,10 @@ namespace IoT.Shared
 {
     public static class MqExchangeNames
     {
-        public const string HubQueueNamePrefix = "Jay.IoT.Entities.Hubs.";
+        public const string HubQueueNamePrefix = "IoT.Entities.Hubs.";
         public static string HubStateSent { get; } = HubQueueNamePrefix + "State.Updated";
 
-        public const string AgentQueueNamePrefix = "Jay.IoT.Entities.Agents.";
+        public const string AgentQueueNamePrefix = "IoT.Entities.Agents.";
 
         public static string AgentStateUpdateRequest{ get; } = AgentQueueNamePrefix + "State.Update.Request";
         public static string AgentStatusSent{ get; } = AgentQueueNamePrefix + "Status.Published";

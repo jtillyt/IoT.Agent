@@ -31,7 +31,7 @@ namespace IoT.ServiceHost.Gpio
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
-            _timer.Interval = 5000;
+            _timer.Interval = 1000;
             _timer.Elapsed += _timer_Elapsed;
             _timer.Start();
         }

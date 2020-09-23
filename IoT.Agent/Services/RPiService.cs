@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.SignalR;
 using IoT.Agent.Hubs;
 using IoT.Agent.Devices;
 using Microsoft.Extensions.Configuration;
+using IoT.Shared.Messaging;
 
 namespace IoT.Agent.Services
 {
@@ -56,7 +57,7 @@ namespace IoT.Agent.Services
 
         private void OnNumericNodeValueReceived(NumericNodeValueReceivedEvent evt)
         {
-            _hubContext.Clients.All.SendAsync("OnNumericNodeValueReceived", evt.NodeTypeId,evt.NodeId, evt.ValueTypeId, evt.Value);
+            _hubContext.Clients.All.SendAsync(MessageConstants.OnNumericNodeValueReceived, evt.NodeTypeId,evt.NodeId, evt.ValueTypeId, evt.Value);
         }
 
         private void _gpio_PinStateChanged(object sender, PinStateChanged pinState)

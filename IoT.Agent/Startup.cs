@@ -13,6 +13,7 @@ using System.IO;
 using Microsoft.AspNetCore.SignalR;
 using IoT.Agent.Hubs;
 using IoT.ServiceHost.Gpio;
+using IoT.Agent.Repos;
 
 namespace IoT.Agent
 {
@@ -41,6 +42,7 @@ namespace IoT.Agent
             services.AddHostedService<RPiService>();
             services.AddSingleton<IDuplexSerialService,DuplexSerialService>();
             services.AddSingleton<IMetricsService,MetricsService>();
+            services.AddSingleton<IUserRepo, InMemoryUserRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
