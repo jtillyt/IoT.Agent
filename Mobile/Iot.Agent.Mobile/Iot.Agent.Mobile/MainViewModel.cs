@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Iot.Agent.Mobile
 {
@@ -102,16 +103,17 @@ namespace Iot.Agent.Mobile
 
         private async Task Login()
         {
-            var userInfo = new UserInfo()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                SignalrConnectionId = _connectionId,
-                FirstName = "James",
-                LastName = "Thomas"
-            };
-
             try
             {
+                var userInfo = new UserInfo()
+                {
+                    ClientId = Guid.NewGuid().ToString(),
+                    SignalrConnectionId = _connectionId,
+                    DeviceName = DeviceInfo.Model,
+                    FirstName = "James",
+                    LastName = "Thomas"
+                };
+
                 await _hubConnection.SendAsync(MessageConstants.MobileLogin, userInfo);
             }
             catch (Exception ex)

@@ -17,7 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Agent.Mobile.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Agent.Mobile.iOS", "Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile.iOS\Iot.Agent.Mobile.iOS.csproj", "{BA8CD737-E8D1-4FF2-90A6-696D407C468D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot.Agent.Mobile", "Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile.csproj", "{AB305376-5148-412A-805E-CF19349CDC22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iot.Agent.Mobile", "Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile\Iot.Agent.Mobile.csproj", "{AB305376-5148-412A-805E-CF19349CDC22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sketches", "Sketches", "{49192116-A9D1-4BD3-B502-8D42E8B95E32}"
+	ProjectSection(SolutionItems) = preProject
+		sketches\DHTtester\DHTtester.ino = sketches\DHTtester\DHTtester.ino
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
